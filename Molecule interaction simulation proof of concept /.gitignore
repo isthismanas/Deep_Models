@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+molinsim/
+
+# Local datasets and generated artifacts.
+data/**
+artifacts/**
+AGENTS.md
+README.md
+ROADMAP.md
