@@ -1,7 +1,7 @@
 {
   "project_name": "molecular_interaction_simulation",
-  "last_update": "2026-03-09T18:09:28+10:30",
-  "current_stage": "stage_1_foundation",
+  "last_update": "2026-03-09T21:28:33+10:30",
+  "current_stage": "stage_2_baselines",
   "goal": {
     "id": "qm9_property_regression",
     "description": "Predict QM9 quantum properties with spatially-aware graph models.",
@@ -18,7 +18,9 @@
       "has 3D geometry",
       "contains target field",
       "already available locally"
-    ]
+    ],
+    "ensured_dataset": "qm9",
+    "ensured_samples": 130831
   },
   "metrics_plan": {
     "primary": [
@@ -31,7 +33,7 @@
   },
   "milestones": {
     "stage_1_goal_metric_dataset_defined": "completed",
-    "stage_2_baselines": "pending",
+    "stage_2_baselines": "in_progress",
     "stage_3_spatial_fusion": "pending",
     "stage_4_interaction_supervision": "pending",
     "stage_5_productionization": "pending"
@@ -48,9 +50,30 @@
     {
       "time": "2026-03-09T18:09:28+10:30",
       "event": "Profiled dataset 'qm9' and wrote data_profile_qm9.json."
+    },
+    {
+      "time": "2026-03-09T21:18:15+10:30",
+      "event": "Ensured dataset 'qm9' in data/ folder."
+    },
+    {
+      "time": "2026-03-09T21:18:21+10:30",
+      "event": "Started Stage 2 baseline training for target 'gap' with 512 samples."
+    },
+    {
+      "time": "2026-03-09T21:27:57+10:30",
+      "event": "Bootstrapped state for goal 'qm9_property_regression' with dataset 'qm9'."
+    },
+    {
+      "time": "2026-03-09T21:28:33+10:30",
+      "event": "Ensured dataset 'qm9' in data/ folder."
+    },
+    {
+      "time": "2026-03-09T21:28:33+10:30",
+      "event": "Started Stage 2 baseline training for target 'gap' with 128 samples."
     }
   ],
   "artifacts": {
-    "data_profile_qm9": "/Users/isthismanas/Documents/Deep_Models/Molecule interaction simulation proof of concept /artifacts/data_profile_qm9.json"
+    "data_profile_qm9": "/Users/isthismanas/Documents/Deep_Models/Molecule interaction simulation proof of concept /artifacts/data_profile_qm9.json",
+    "baseline_qm9_gap": "/Users/isthismanas/Documents/Deep_Models/Molecule interaction simulation proof of concept /artifacts/baseline_qm9_gap.json"
   }
 }

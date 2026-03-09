@@ -7,9 +7,8 @@ import sys
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-SRC_ROOT = PROJECT_ROOT / "src"
-if str(SRC_ROOT) not in sys.path:
-    sys.path.insert(0, str(SRC_ROOT))
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
 
 from molsim.data import DatasetCatalog, DatasetSelector
 from molsim.goals import GoalRegistry
@@ -47,7 +46,7 @@ def main() -> None:
     state = store.load()
 
     state["project_name"] = state.get("project_name", "molecular_interaction_simulation")
-    state["current_stage"] = "stage_1_foundation"
+    state.setdefault("current_stage", "stage_1_foundation")
     state["goal"] = {
         "id": goal.goal_id,
         "description": goal.description,
@@ -55,16 +54,21 @@ def main() -> None:
         "target_field": goal.target_field,
         "requires_3d_geometry": goal.requires_3d_geometry,
     }
-    state["dataset_plan"] = {
+    dataset_plan = state.get("dataset_plan", {})
+    dataset_plan.update({
         "primary": top_choice.dataset.display_name,
         "primary_id": top_choice.dataset.dataset_id,
         "local_available": top_choice.local_available,
         "selection_reasons": list(top_choice.reasons),
-    }
-    state["metrics_plan"] = {
+    })
+    state["dataset_plan"] = dataset_plan
+
+    metrics_plan = state.get("metrics_plan", {})
+    metrics_plan.update({
         "primary": list(goal.primary_metrics),
         "secondary": list(goal.secondary_metrics),
-    }
+    })
+    state["metrics_plan"] = metrics_plan
     state.setdefault("milestones", {})
     state["milestones"]["stage_1_goal_metric_dataset_defined"] = "completed"
     state["milestones"].setdefault("stage_2_baselines", "pending")

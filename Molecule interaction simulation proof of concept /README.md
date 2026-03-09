@@ -18,12 +18,12 @@ python3 scripts/train_qm9_baseline.py --target gap --epochs 3 --max-samples 2000
 
 ## Structure
 
-- `src/molsim/goals.py`: goal/task definitions and metric plan.
-- `src/molsim/metrics.py`: reusable metric evaluators.
-- `src/molsim/data/`: dataset catalog, ranking, loading, and split helpers.
-- `src/molsim/models/`: baseline neural architectures.
-- `src/molsim/training/`: train/eval loop utilities.
-- `src/molsim/state.py`: JSON-backed project state persistence.
+- `molsim/goals.py`: goal/task definitions and metric plan.
+- `molsim/metrics.py`: reusable metric evaluators.
+- `molsim/data/`: dataset catalog, ranking, loading, and split helpers.
+- `molsim/models/`: baseline neural architectures.
+- `molsim/training/`: train/eval loop utilities.
+- `molsim/state.py`: JSON-backed project state persistence.
 - `docs/stage_1_detailed.md`: detailed Stage 1 methodology with equations.
 - `ROADMAP.md`: staged implementation roadmap.
 - `AGENTS.md`: local repo operating instructions.
