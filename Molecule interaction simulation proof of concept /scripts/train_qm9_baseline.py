@@ -16,7 +16,6 @@ if str(PROJECT_ROOT) not in sys.path:
 
 from molsim.data import DatasetManager, QM9TargetAdapter
 from molsim.models import GCNRegressor
-from molsim.state import ProjectStateStore
 from molsim.training import RegressionTrainer, TrainingConfig
 
 
@@ -33,12 +32,6 @@ def parse_args() -> argparse.Namespace:
         default="cpu",
         choices=["cpu", "cuda", "mps"],
         help="Device for training.",
-    )
-    parser.add_argument(
-        "--state-path",
-        type=str,
-        default=str(PROJECT_ROOT / "project_state.json"),
-        help="Path to state JSON file.",
     )
     return parser.parse_args()
 
@@ -102,19 +95,6 @@ def main() -> None:
         "test_metrics": test_metrics,
     }
     out_path.write_text(json.dumps(out, indent=2) + "\n")
-
-    store = ProjectStateStore.from_path(args.state_path)
-    state = store.load()
-    state["current_stage"] = "stage_2_baselines"
-    state.setdefault("milestones", {})
-    state["milestones"]["stage_2_baselines"] = "in_progress"
-    state.setdefault("artifacts", {})
-    state["artifacts"][f"baseline_qm9_{args.target}"] = str(out_path)
-    store.append_event(
-        state,
-        f"Started Stage 2 baseline training for target '{args.target}' with {n} samples.",
-    )
-    store.save(state)
 
     print(f"Saved baseline artifact: {out_path}")
     print(json.dumps(out, indent=2))

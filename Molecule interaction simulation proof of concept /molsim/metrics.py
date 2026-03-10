@@ -77,3 +77,24 @@ def compute_voxel_mse(target: np.ndarray, recon: np.ndarray) -> float:
         raise ValueError("target and recon must have same shape")
 
     return float(np.mean((target_np - recon_np) ** 2))
+
+
+def compute_voxel_overlap(
+    target: np.ndarray,
+    recon: np.ndarray,
+    threshold: float = 0.1,
+    eps: float = 1e-8,
+) -> float:
+    """Soft overlap score over thresholded occupancy."""
+    target_np = np.asarray(target, dtype=float)
+    recon_np = np.asarray(recon, dtype=float)
+
+    if target_np.shape != recon_np.shape:
+        raise ValueError("target and recon must have same shape")
+
+    target_mask = target_np >= threshold
+    recon_mask = recon_np >= threshold
+
+    intersection = np.logical_and(target_mask, recon_mask).sum()
+    union = np.logical_or(target_mask, recon_mask).sum()
+    return float((intersection + eps) / (union + eps))
